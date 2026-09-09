@@ -1,0 +1,8 @@
+defaults:
+  - model: small
+  - dataset: pretrain_v2
+  - system: default
+  - task: train
+  - logging: train
+  - output: default
+  - _self_

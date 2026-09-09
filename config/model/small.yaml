@@ -1,0 +1,4 @@
+model_dim: 96
+num_layers: 8
+kernel_size: 7
+ffn_dim: 192

@@ -1,0 +1,11 @@
+seed: 42
+set_seed: false
+num_workers: 8
+keep_in_memory: false
+tf32_enabled: true
+mixed_precision: "bf16"
+optim_8bit: false
+optim_paged: false
+gradient_checkpointing: true
+device: "cuda"
+expandable_segments_enabled: true

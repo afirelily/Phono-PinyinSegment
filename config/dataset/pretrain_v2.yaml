@@ -1,0 +1,14 @@
+# Reuse PhonoP2C's preprocessed data. No preprocessing task exists here.
+train_dir_mds: "../PhonoP2C/datasets/pretrain_v2/train"
+val_dir: "../PhonoP2C/datasets/pretrain_v2/val_original"
+vocabs_config: "./vocabs/config.yaml"
+
+augmentation:
+  drop_vowels: 0.2
+  drop_last_vowel: 0.3
+  vowels_droprate: [0.5, 1.0]
+
+shuffle:
+  algo: py1e
+  blocksize: 200000000000
+  cache_limit: 140gb

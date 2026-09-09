@@ -1,0 +1,6 @@
+progress_bar:
+  bar_width: null
+  refresh_per_second: 10
+  transient: true
+logging:
+  log_level: "ERROR"

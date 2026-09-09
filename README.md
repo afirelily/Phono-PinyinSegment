@@ -1,0 +1,47 @@
+# Phono-PinyinSegment
+
+Phono-PinyinSegment is the lightweight pinyin boundary detector paired with
+PhonoP2C. It consumes concatenated, tone-free pinyin letters and predicts one
+binary boundary for every adjacent character pair.
+
+For example, `nihaoma` has seven characters and six output positions. The
+target boundaries recover `ni hao ma`.
+
+## Architecture
+
+The Hugging Face `PinyinSegmentModel` uses an embedding followed by pre-norm
+residual depthwise-separable convolution blocks. Depthwise convolutions run in
+channels-last memory format; the pointwise path is a Linear
+Up-SiLU-Gate-Down SwiGLU. A final valid width-2 depthwise contraction maps a
+length-L input to L-1 gap features before the binary classifier.
+
+## Data
+
+No preprocessing code is included. Training reads the existing PhonoP2C MDS
+dataset and validation reads `val_original`. Their flat `pinyin_list` field is
+already the uniquely disambiguated pronunciation sequence. Online augmentation
+supports only `drop_vowels`, `drop_last_vowel`, and `vowels_droprate`.
+
+## Commands
+
+```bash
+pixi run test
+pixi run train
+pixi run demo -- nihaoma --checkpoint ./checkpoints/v1_0-small/final_model
+pixi run python export.py --checkpoint ./checkpoints/v1_0-small/final_model --quantization w8a8
+```
+
+Hydra overrides work as in PhonoP2C, for example
+`pixi run train system.optim_8bit=false model=tiny`.
+Use `task.loss_type=focal` to compare focal loss against the default BCE;
+`task.focal_loss_alpha` and `task.focal_loss_gamma` control its class weighting
+and focusing strength.
+
+Checkpoints contain only Hugging Face model configuration/weights plus the
+resolved training configuration. Optimizer and scheduler state are deliberately
+not stored. Validation reports BCE loss, per-gap accuracy (`ACC`), and exact
+whole-sequence accuracy (`S-ACC`).
+
+The exported mobile graph has a static batch size of one and a dynamic input
+length from 3 through 512. A shorter input can be padded to length 3 by the
+caller; only its first `original_length - 1` logits are meaningful.

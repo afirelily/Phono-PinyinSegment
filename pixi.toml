@@ -1,0 +1,44 @@
+[workspace]
+name = "Phono-PinyinSegment-env"
+version = "0.1.0"
+description = "Lightweight pinyin segmentation training environment"
+channels = ["conda-forge", "nvidia"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = ">=3.13,<3.14"
+cuda-runtime = ">=13.0,<13.1"
+setuptools = ">=82.0.1,<83"
+pip = "*"
+
+[pypi-dependencies]
+torch = { version = "*", index = "https://download.pytorch.org/whl/cu130" }
+torchvision = { version = "*", index = "https://download.pytorch.org/whl/cu130" }
+triton = { version = "*", index = "https://download.pytorch.org/whl/cu130" }
+torchao = { version = "*", index = "https://download.pytorch.org/whl/cu130" }
+executorch = "*"
+bitsandbytes = "*"
+transformers = "*"
+datasets = "*"
+mosaicml-streaming = "*"
+pyarrow = "*"
+numpy = "*"
+rich = "*"
+wandb = "*"
+hydra-core = "*"
+pytest = "*"
+pyyaml = "*"
+black = "*"
+isort = "*"
+flake8 = "*"
+mypy = "*"
+
+[tasks]
+train = "python main.py"
+demo = "python demo.py"
+test = "pytest"
+format = "black . && isort ."
+lint = "flake8 . && mypy ."
+
+[environments]
+default = { features = [], solve-group = "default" }

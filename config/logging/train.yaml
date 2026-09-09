@@ -1,0 +1,9 @@
+train:
+  log_with_wandb: true
+  project_name: "Phono-PinyinSegment"
+  run_name: "V1.0-Small-Alpha02"
+  notes: "Alpha02 uses broader kernel."
+  checkpoint_dir: "./checkpoints/v1_0-small-alpha02"
+  histogram_interval: 10000
+  val_interval: 5000
+  save_interval: 1
