@@ -1,8 +1,9 @@
 # Phono-PinyinSegment
 
-Phono-PinyinSegment is the lightweight pinyin boundary detector paired with
-PhonoP2C. It consumes concatenated, tone-free pinyin letters and predicts one
-binary boundary for every adjacent character pair.
+Phono-PinyinSegment is the lightweight pinyin gap scorer paired with PhonoP2C.
+It consumes concatenated, tone-free pinyin letters and emits one boundary
+logit for every adjacent character pair. Production decoding combines these
+scores with a legal pinyin Trie DAG instead of thresholding gaps greedily.
 
 For example, `nihaoma` has seven characters and six output positions. The
 target boundaries recover `ni hao ma`.
@@ -27,7 +28,7 @@ supports only `drop_vowels`, `drop_last_vowel`, and `vowels_droprate`.
 ```bash
 pixi run test
 pixi run train
-pixi run demo -- nihaoma --checkpoint ./checkpoints/v1_0-small/final_model
+pixi run demo -- nihaoma --checkpoint ./checkpoints/v1_0-small-alpha02/final_model
 pixi run python export.py --checkpoint ./checkpoints/v1_0-small/final_model --quantization w8a8
 ```
 
@@ -43,5 +44,8 @@ not stored. Validation reports BCE loss, per-gap accuracy (`ACC`), and exact
 whole-sequence accuracy (`S-ACC`).
 
 The exported mobile graph has a static batch size of one and a dynamic input
-length from 3 through 512. A shorter input can be padded to length 3 by the
-caller; only its first `original_length - 1` logits are meaningful.
+length from 3 through 512. phono-core routes shorter input directly to its
+checked FMM path and does not invoke or pad the scorer.
+
+See [Gap scorer and legal-path MAP decoding](docs/scorer-decoding.md) for the
+exact logit-sum derivation and Trie-DAG dynamic program.
