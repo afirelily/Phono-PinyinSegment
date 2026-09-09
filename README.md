@@ -29,7 +29,7 @@ supports only `drop_vowels`, `drop_last_vowel`, and `vowels_droprate`.
 pixi run test
 pixi run train
 pixi run demo -- nihaoma --checkpoint ./checkpoints/v1_0-small-alpha02/final_model
-pixi run python export.py --checkpoint ./checkpoints/v1_0-small/final_model --quantization w8a8
+pixi run python export.py --checkpoint ./checkpoints/v1_0-small-alpha02/final_model --quantization none
 ```
 
 Hydra overrides work as in PhonoP2C, for example

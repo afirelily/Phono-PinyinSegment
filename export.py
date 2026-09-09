@@ -84,7 +84,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint", default="./checkpoints/v1_0-small-alpha02/final_model")
     parser.add_argument("--output-dir", default="./export_output")
-    parser.add_argument("--quantization", choices=("none", "w8a8"), default="w8a8")
+    parser.add_argument("--quantization", choices=("none", "w8a8"), default="none")
     args = parser.parse_args()
 
     from executorch.backends.xnnpack.partition.xnnpack_partitioner import XnnpackPartitioner
