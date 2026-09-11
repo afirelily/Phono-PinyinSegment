@@ -43,3 +43,11 @@ Hydra values can be overridden directly, for example with `pixi run train system
 ## Documentation
 
 - [Gap scoring and legal-path MAP decoding](docs/en-us/scorer-decoding.md)
+
+## 许可证
+
+本项目基于 Apache License 2.0 开源，详见 [LICENSE](LICENSE)。
+
+## License
+
+Open-sourced under the Apache License 2.0; see [LICENSE](LICENSE).
