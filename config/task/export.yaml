@@ -1,0 +1,33 @@
+task_type: export
+
+checkpoint_dir: ./checkpoints/v1_0-small-alpha02/final_model
+output_dir: ./export_output
+outputs:
+  model: pinyin_segment.pte
+  manifest: pinyin_segment_ops.yaml
+
+# ExecuTorch/XNNPACK export targets CPU.
+device: cpu
+dtype: float32
+
+model_metadata:
+  version: v1_0-small-alpha02
+  format_version: "1.0"
+  layout: BHWC
+
+example_inputs:
+  sequence_length: 16
+  sequence_min: 3
+  sequence_max: 512
+
+quantization:
+  # Supported modes: none, w8a8.
+  mode: none
+  per_channel: true
+  dynamic: true
+
+export:
+  strict: true
+
+manifests:
+  enabled: true

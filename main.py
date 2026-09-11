@@ -20,8 +20,17 @@ def main(cfg: DictConfig):
             torch.cuda.manual_seed_all(cfg.system.seed)
     torch.set_float32_matmul_precision("high")
 
-    from tasks.train import Trainer
-    Trainer(cfg).train()
+    task_name = cfg.task.get("task_type", "train")
+    if task_name == "export":
+        from export import run_export
+
+        run_export(cfg.task)
+    elif task_name == "train":
+        from tasks.train import Trainer
+
+        Trainer(cfg).train()
+    else:
+        raise ValueError(f"Unsupported task_type: {task_name}")
 
 
 if __name__ == "__main__":

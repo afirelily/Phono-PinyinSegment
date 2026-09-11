@@ -30,7 +30,7 @@ pixi run test
 pixi run train
 pixi run demo -- nihaoma --checkpoint ./checkpoints/v1_0-small-alpha02/final_model \
   --pinyin-vocab ../PhonoP2C/vocabs/pinyin_vocab.txt
-pixi run python export.py --checkpoint ./checkpoints/v1_0-small-alpha02/final_model --quantization none
+pixi run python main.py task=export
 ```
 
 Hydra overrides work as in PhonoP2C, for example
@@ -44,7 +44,8 @@ resolved training configuration. Optimizer and scheduler state are deliberately
 not stored. Validation reports BCE loss, per-gap accuracy (`ACC`), and exact
 whole-sequence accuracy (`S-ACC`).
 
-The exported mobile graph has a static batch size of one and a dynamic input
+Export inputs, outputs, graph dimensions, metadata, and quantization are configured
+in `config/task/export.yaml`. The exported mobile graph has a static batch size of one and a dynamic input
 length from 3 through 512. phono-core routes shorter input directly to its
 checked FMM path and does not invoke or pad the scorer.
 
