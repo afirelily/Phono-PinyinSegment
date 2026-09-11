@@ -28,7 +28,8 @@ supports only `drop_vowels`, `drop_last_vowel`, and `vowels_droprate`.
 ```bash
 pixi run test
 pixi run train
-pixi run demo -- nihaoma --checkpoint ./checkpoints/v1_0-small-alpha02/final_model
+pixi run demo -- nihaoma --checkpoint ./checkpoints/v1_0-small-alpha02/final_model \
+  --pinyin-vocab ../PhonoP2C/vocabs/pinyin_vocab.txt
 pixi run python export.py --checkpoint ./checkpoints/v1_0-small-alpha02/final_model --quantization none
 ```
 
