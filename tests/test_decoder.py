@@ -1,4 +1,4 @@
-from decoder import decode_legal_path
+from algo import decode_legal_path
 
 
 def test_decoder_uses_logits_only_at_selected_boundaries():

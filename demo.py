@@ -5,7 +5,7 @@ from pathlib import Path
 
 import torch
 
-from decoder import decode_legal_path, load_pinyin_vocabulary
+from algo import decode_legal_path, load_pinyin_vocabulary
 from model.model import PinyinSegmentModel
 from tokenizer import PinyinCharTokenizer
 
